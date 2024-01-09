@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
+import androidx.webkit.WebViewAssetLoader;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
@@ -42,9 +43,22 @@ public class RNCWebViewClient extends WebViewClient {
     protected RNCWebView.ProgressChangedFilter progressChangedFilter = null;
     protected @Nullable String ignoreErrFailedForThisURL = null;
     protected @Nullable RNCBasicAuthCredential basicAuthCredential = null;
+    protected @Nullable WebViewAssetLoader assetLoader = null;
+
+    public RNCWebViewClient(ReactContext reactContext) {
+      this.assetLoader = new WebViewAssetLoader.Builder()
+        .addPathHandler("/DOCUMENT_DIRECTORY/", new WebViewAssetLoader.InternalStoragePathHandler(reactContext, reactContext.getFilesDir()))
+        .build();
+    }
 
     public void setIgnoreErrFailedForThisURL(@Nullable String url) {
         ignoreErrFailedForThisURL = url;
+    }
+
+    @Override
+    @RequiresApi(21)
+    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+      return assetLoader.shouldInterceptRequest(request.getUrl());
     }
 
     public void setBasicAuthCredential(@Nullable RNCBasicAuthCredential credential) {

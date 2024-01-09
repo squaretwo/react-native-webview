@@ -10,6 +10,8 @@
 #import <WebKit/WKDataDetectorTypes.h>
 #import <WebKit/WebKit.h>
 
+#import "RNCWebviewURLSchemeHandler.h"
+
 #if !TARGET_OS_OSX
 #import <UIKit/UIScrollView.h>
 #endif  // !TARGET_OS_OSX
@@ -45,6 +47,7 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 @end
 
 @interface RNCWebViewImpl : RCTView
+@property (nonatomic, strong) RNCWebviewURLSchemeHandler * _Nonnull schemeHandler;
 @property (nonatomic, copy) RCTDirectEventBlock onFileDownload;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadingStart;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadingFinish;
