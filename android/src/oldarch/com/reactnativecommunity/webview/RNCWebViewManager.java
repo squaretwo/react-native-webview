@@ -276,7 +276,7 @@ public class RNCWebViewManager extends ViewGroupManager<RNCWebViewWrapper> {
     @Override
     protected void addEventEmitters(@NonNull ThemedReactContext reactContext, RNCWebViewWrapper viewWrapper) {
         // Do not register default touch emitter and let WebView implementation handle touches
-        viewWrapper.getWebView().setWebViewClient(new RNCWebViewClient());
+        viewWrapper.getWebView().setWebViewClient(new RNCWebViewClient(reactContext));
     }
 
     @Override
