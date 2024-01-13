@@ -19,8 +19,8 @@
  Adapted for React Native by Raymond Cook 2022
  */
 
-@import Foundation;
-@import WebKit;
+#import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
 @interface RNCWebviewURLSchemeHandler : NSObject <WKURLSchemeHandler>
 @end
