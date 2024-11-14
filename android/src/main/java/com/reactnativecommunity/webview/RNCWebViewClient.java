@@ -49,7 +49,7 @@ public class RNCWebViewClient extends WebViewClient {
 
     public RNCWebViewClient(ReactContext reactContext) {
       this.assetLoader = new WebViewAssetLoader.Builder()
-        .addPathHandler("/DOCUMENT_DIRECTORY/", new WebViewAssetLoader.InternalStoragePathHandler(reactContext, reactContext.getFilesDir()))
+        .addPathHandler("/", new WebViewAssetLoader.AssetsPathHandler(reactContext))
         .build();
     }
 

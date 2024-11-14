@@ -32,12 +32,12 @@
 
 - (void)webView:(WKWebView *)webView startURLSchemeTask:(id <WKURLSchemeTask>)urlSchemeTask
 {
-    NSString * startPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject];
+    NSString * startPath = [[NSBundle mainBundle] pathForResource:@"www" ofType: nil];
 
     NSURL * url = urlSchemeTask.request.URL;
     NSString * stringToLoad = url.path;
     NSString * scheme = url.scheme;
-    
+
     if ([stringToLoad isEqualToString:@""] || [url.pathExtension isEqualToString:@""]) {
         startPath = [startPath stringByAppendingPathComponent:@"index.html"];
     } else {
@@ -79,11 +79,11 @@
 
 -(NSString *) getMimeType:(NSString *)fileExtension {
     if (fileExtension && ![fileExtension isEqualToString:@""]) {
-        
+
         if ([fileExtension isEqualToString:@"css"]) {
             return @"text/css";
         }
-        
+
         NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)fileExtension, NULL);
         NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
         return contentType ? contentType : @"application/octet-stream";
